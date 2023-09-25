@@ -28,9 +28,11 @@ The dataset is acquired from Domain.com.au and updated weekly. It contains vario
 
 1. Data Normalization: Using Python, attributes like suburb, method of selling, and type of real estate are normalized and lookup tables are created.
 2. Data Ingestion: Apache Nifi is used for data ingestion from the data lake, simulated by a directory.
+   ![Data Ingestion](./screenshots/nifi-canvas.png)
 3. Data Storage: The cleaned and transformed data is stored in a PostgreSQL database.
 4. Data Indexing: Simultaneously, the cleaned data is indexed in Elasticsearch for faster queries.
 5. Data Visualization: A dashboard is set up in Kibana to display trends and insights to end-users.
+   ![Kibana Dashboard](./screenshots/kibana-map.png)
 
 ## Getting Started
 
