@@ -1,0 +1,9 @@
+# ------------------------ Cluster -------------------
+cluster.name: "OnlyCluster"
+
+# ------------------------ Node ----------------------
+node.name: "only-node"
+
+# ------------------------ Paths ---------------------
+path.data: "/usr/share/elasticsearch/data"
+path.logs: "/usr/share/elasticsearch/logs"

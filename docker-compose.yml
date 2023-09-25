@@ -1,0 +1,67 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    image: docker.io/library/elasticsearch:7.6.0
+    environment:
+      - "discovery.type=single-node"
+      - "cluster.name=OnlyCluster"
+      - "node.name=only-node"
+      - "xpack.security.enabled=false"
+    ports:
+      - "9200:9200"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - de_network
+
+  kibana:
+    image: docker.io/library/kibana:7.6.0 
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - de_network
+
+  nifi:
+    image: docker.io/apache/nifi:latest
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./nifi/data:/opt/nifi/nifi-current/data
+    networks:
+      - de_network
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - de_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - de_network
+
+networks:
+  de_network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+
